@@ -1,4 +1,4 @@
-package com.Mustafa.scottishapi
+package com.mustafa.scottishapi
 
 import org.junit.Test
 
