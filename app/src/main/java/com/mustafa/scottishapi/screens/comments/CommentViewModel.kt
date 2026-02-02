@@ -26,11 +26,15 @@ class CommentViewModel @Inject constructor(
             commentsUseCases.getAllCommentsUseCase().collect { result ->
                 _commentsUiState.value = when(result) {
                     is Resource.Loading -> _commentsUiState.value.copy(isLoading = true)
-                    is Resource.Success -> _commentsUiState.value.copy(
-                        isLoading = false,
-                        comments = result.data ?: emptyList(),
-                        error = null
-                    )
+                    is Resource.Success -> {
+                        val orderedComments = result.data?.sortedBy { comment -> comment.name }
+                        _commentsUiState.value.copy(
+                            isLoading = false,
+                            comments = orderedComments ?: emptyList(),
+                            error = null
+                        )
+                    }
+
                     is Resource.Failure -> _commentsUiState.value.copy(
                         isLoading = false,
                         error = result.message
