@@ -1,6 +1,5 @@
 package com.mustafa.domain.use_cases
 
-import com.mustafa.domain.entity.User
 import com.mustafa.domain.repositories.comment.CommentRepository
 import com.mustafa.domain.use_cases.comments.GetAllCommentsUseCase
 import com.mustafa.domain.utils.Resource
@@ -22,11 +21,10 @@ class GetAllCommentsUseCaseTest {
     @Test
     fun `invoke should return list of comments from repository`() = runTest {
         // Arrange: Create a fake list of domain comments
-        val user1 = User(id = 1, "User1", "Full User Name 1")
-        val user2 = User(id = 2, "User2", "Full User Name 2")
+
         val mockComments = listOf(
-            Comment(id = 1, body = "Test 1", user = user1),
-            Comment(id = 2, body = "Test 2", user = user2)
+            Comment(id = 1, body = "Test 1", name = "Mustafa", email = "mustafa2@gmail.com"),
+            Comment(id = 2, body = "Test 2", name = "Mustafa2", email = "mustafa2@gmail.com")
         )
         
         // "Train" the mock: When repo.getAllComments() is called, return our fake list

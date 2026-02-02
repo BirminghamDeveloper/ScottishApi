@@ -35,7 +35,7 @@ fun CommentItem(
                 .fillMaxWidth()
         ) {
             Text(
-                text = comment.user.fullName,
+                text = comment.name,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black

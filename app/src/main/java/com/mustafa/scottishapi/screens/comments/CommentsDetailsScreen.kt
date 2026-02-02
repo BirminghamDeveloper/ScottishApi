@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustafa.domain.entity.Comment
-import com.mustafa.domain.entity.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +60,7 @@ fun CommentsDetailsScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
 
-                Text(text = comment.body, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(text = comment.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Text(text = comment.body, fontSize = 14.sp, color = Color.Gray)
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -71,7 +70,7 @@ fun CommentsDetailsScreen(
 
                 HorizontalDivider(thickness = 0.5.dp, color = Color.LightGray)
 
-                DetailRow(label = "username", value = comment.body)
+                DetailRow(label = "email", value = comment.email)
             }
         }
     }
@@ -97,11 +96,8 @@ private fun PreviewCommentsDetailsScreen() {
         comment = Comment(
             id = 1,
             body = "some comment",
-            user = User(
-                1,
-                "mustafaa",
-                "Mustafa"
-            )
+            name = "Developer",
+            email = "mustafa@gmail.com"
         ),
         onBackClick = {}
     )

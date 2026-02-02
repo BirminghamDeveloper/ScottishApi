@@ -17,7 +17,7 @@ class CommentRepositoryImpl @Inject constructor(
         try {
             val response = commentApiService.getComments()
             println(response)
-            val domainComments = response.comments.map { it.toCommentEntity() }
+            val domainComments = response.map { it.toCommentEntity() }
             emit(Resource.Success(domainComments))
         } catch (e: Exception) {
             emit(Resource.Failure(e.message ?: "Unknown Error"))

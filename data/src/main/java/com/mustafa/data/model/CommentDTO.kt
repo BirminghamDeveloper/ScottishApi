@@ -1,10 +1,8 @@
 package com.mustafa.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class CommentDTO(
     val id: Int,
-    val body: String,
-    @SerializedName("user")
-    val userDTO: UserDTO
+    val name: String,
+    val email: String,
+    val body: String
 )

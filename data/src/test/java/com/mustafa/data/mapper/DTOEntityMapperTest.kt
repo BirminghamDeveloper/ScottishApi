@@ -20,8 +20,7 @@ class DTOEntityMapperTest {
         // Assert
         assertEquals(expectedDomain.id, result.id)
         assertEquals(expectedDomain.body, result.body)
-        
-        // CRITICAL: Check that the nested username was mapped correctly
-        assertEquals(expectedDomain.user.username, result.user.username)
+
+        assertEquals(expectedDomain.name, result.name)
     }
 }
