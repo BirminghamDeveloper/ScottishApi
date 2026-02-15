@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 fun CommentsScreen(
     modifier: Modifier = Modifier,
     viewModel: CommentViewModel,
-    onCommentClick : (index : Int) -> Unit
+    onCommentClick : (id : Int) -> Unit
 ) {
     val commentsUiState = viewModel.commentsUiState
 
@@ -50,11 +50,11 @@ fun CommentsScreen(
                     contentPadding = PaddingValues(16.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    itemsIndexed(comments) { index, comment ->
+                    itemsIndexed(comments) { _, comment ->
                         CommentItem(
                             comment = comment,
                             onCommentClick = {
-                                onCommentClick(index)
+                                onCommentClick(comment.id)
                             }
                         )
                     }

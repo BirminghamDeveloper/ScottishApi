@@ -23,22 +23,24 @@ fun CommentsNavHost(){
         ){
             CommentsScreen(
                 viewModel = commentsViewModel,
-                onCommentClick = { index ->
-                    navController.navigate("${Route.CommentsDetailsScreen.name}/$index")
+                onCommentClick = { id ->
+                    navController.navigate("${Route.CommentsDetailsScreen.name}/$id")
                 }
             )
         }
 
         composable(
-            route = Route.CommentsDetailsScreen.name+ "/{index}",
-            arguments = listOf(navArgument("index") { type = NavType.IntType })
+            route = Route.CommentsDetailsScreen.name+ "/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
         ){ backStackEntry ->
             val comments = commentsViewModel.commentsUiState.value.comments
-            val index = backStackEntry.arguments?.getInt("index") ?: 0
+            val id = backStackEntry.arguments?.getInt("id") ?: 0
 
-            if (index in comments.indices) {
+            val comment = comments.find { it.id == id }
+
+            if (comment != null) {
                 CommentsDetailsScreen(
-                    comment = comments[index],
+                    comment = comment,
                     onBackClick = {
                         navController.navigateUp()
                     }
