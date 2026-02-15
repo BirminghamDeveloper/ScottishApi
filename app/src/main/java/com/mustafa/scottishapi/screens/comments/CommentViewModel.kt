@@ -27,10 +27,9 @@ class CommentViewModel @Inject constructor(
                 _commentsUiState.value = when(result) {
                     is Resource.Loading -> _commentsUiState.value.copy(isLoading = true)
                     is Resource.Success -> {
-                        val orderedComments = result.data?.sortedBy { comment -> comment.name }
                         _commentsUiState.value.copy(
                             isLoading = false,
-                            comments = orderedComments ?: emptyList(),
+                            comments = result.data ?: emptyList(),
                             error = null
                         )
                     }

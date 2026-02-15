@@ -18,7 +18,8 @@ class CommentRepositoryImpl @Inject constructor(
             val response = commentApiService.getComments()
             println(response)
             val domainComments = response.map { it.toCommentEntity() }
-            emit(Resource.Success(domainComments))
+            val orderedComments = domainComments.sortedBy { comment -> comment.name }
+            emit(Resource.Success(orderedComments))
         } catch (e: Exception) {
             emit(Resource.Failure(e.message ?: "Unknown Error"))
         }
