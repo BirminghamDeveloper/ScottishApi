@@ -3,8 +3,15 @@ package com.Mustafa.scottishapi.screens.comments
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -22,7 +29,16 @@ fun CommentsScreen(
     viewModel: CommentViewModel,
     onCommentClick : (id : Int) -> Unit
 ) {
+
+
     val commentsUiState = viewModel.commentsUiState
+
+    val searchQuery by viewModel.searchQuery
+    val filterComent = remember(searchQuery, commentsUiState.value.comments) {
+        commentsUiState.value.comments.filter {
+            it.name.contains(searchQuery, ignoreCase = true)
+        }
+    }
 
     if(commentsUiState.value.isLoading){
         Box(
@@ -35,9 +51,24 @@ fun CommentsScreen(
     }else{
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = { Text("Comments Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold) }
-                )
+                Column{
+                    TopAppBar(
+                        title = { Text("Comments Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold) }
+                    )
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { viewModel.onSearchQueryChange(it) },
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                        placeholder = {
+                            Text("seach for comments")
+                        },
+                        leadingIcon = {
+                            Icon(Icons.Default.Search, contentDescription = "Searching Icons")
+                        },
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+
             },
             containerColor = Color(0xFFF7F7F7)
         ) { padding ->

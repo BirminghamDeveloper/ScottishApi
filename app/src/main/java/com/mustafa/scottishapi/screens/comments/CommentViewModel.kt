@@ -1,7 +1,10 @@
 package com.Mustafa.scottishapi.screens.comments
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mustafa.domain.use_cases.comments.CommentUseCases
@@ -17,8 +20,15 @@ class CommentViewModel @Inject constructor(
     private val _commentsUiState = mutableStateOf(CommentUIState())
     val commentsUiState : State<CommentUIState> = _commentsUiState
 
+    private val _searchQuery = mutableStateOf("")
+    val searchQuery: State<String> = _searchQuery
+
     init {
         fetchComments()
+    }
+
+    fun onSearchQueryChange(query: String){
+        _searchQuery.value = query
     }
 
     fun fetchComments() {
